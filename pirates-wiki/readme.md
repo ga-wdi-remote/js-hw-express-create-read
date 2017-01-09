@@ -10,11 +10,11 @@ instructors' repository. You shouldn't hit a merge conflict here, but if you do,
 ### Exercise Objectives
 
 - gain meaningful practice with CREATE and READ in CRUD
-- gain more practice setting up an Express app with [MVC](https://www.tutorialspoint.com/mvc_framework/mvc_framework_introduction.htm) framework
+- gain more practice setting up an Express app with [MVC](https://www.tutorialspoint.com/mvc_framework/mvc_framework_introduction.htm) framework in mind
 - gain understanding linking files in different folders together with relative paths
 - gain more practice rendering views with Handlebars, including forms
 
-<details><summary>### CRUD & RESTful Recap</summary>
+<details><summary>**CRUD & RESTful RECAP**</summary>
 
 CRUD stands for Create, Read, Update, and Destroy-- these are the fundamental actions we perform on data.
 
@@ -51,7 +51,7 @@ There are seven RESTFUL routes, but tonight we are only using four.
 </details>
 
 ## APP
-The app will show a list of famous pirates' names. When you click on a name, a new page lists more information about them.
+You will create an Express app that shows a list of famous pirates' names. When you click on a name, a new page lists more information about them.
 
 The app will also be able to store new pirate entries. Clicking on "New Pirate" will create and store the new pirate, and be displayed on the index page.
 
@@ -64,21 +64,57 @@ The app will also be able to store new pirate entries. Clicking on "New Pirate" 
   - `views`: your Handlebars views live here
   - `controllers`:  you will code your routes in `controllers/pirates.js`
 
-### Controllers
-- *REPS*: In `controllers/pirates.js`, make your `index` and `show` routes for the pirates in the pirates model.
+### Part 1: Set up Express server
+  - In the `pirates-wiki` root directory, create `server.js`. This is where you will set up your express app's server.
+    - Include requirements, middleware, and listener to port 3000
+    - Confirm your server is ready by running `node server.js` without error
 
-  - URI convention for index: GET `/pirates`
-  - URI convention for show: GET `/pirates/:id`
+### Part 2: Set up Controllers with Express Router
+
+####server.js
+    - Before creating routes, we have to hook up our controllers to our server. Previously, we were writing our routes directly in `server.js`. Instead, we will use express routers. In `server.js`, after the middleware and before the listener, add this:
+
+```
+//controllers for `/pirates` resource
+var pirateController = require('./controllers/pirates.js');
+app.use("/pirates", pirateController);
+```
+
+This tells our server our controller files for `/pirates` lives in the `../controllers/pirates.js` directory.
+
+#### controllers/pirates.js
+
+In `controllers/pirates.js`, set up your requirements as follows. The basic structure of this file will be:
+
+```
+var express = require("express");
+var router = express.Router();
+var pirates = require('../models/pirates.js');
+
+//all routes for /pirate below:
+router.get(.......)
+router.post(......)
+....etc
+
+module.exports = router;
+```
+
+Notice we aren't using `app.get`, `app.post`, we are going to use `router.get`, `router.post`. All the code in those methods will be the same as we've worked with before. Also notice `module.exports = router` is listed AFTER all the routes.
+
+- *REPS*: In `controllers/pirates.js`, make your `index` and `show` routes for the pirates in the pirates model. Remember, all routes in this file correspond to the `/pirates` resource we've declared on `server.js`.
+
+  - URI convention for index: GET `/`
+  - URI convention for show: GET `/:id`
 
 - Make a `new` route. All this should do is render the `new` view, you don't need to pass it data.
-  - URI convention for new: GET `/pirates/new`
+  - URI convention for new: GET `/new`
   - Place your `new` route above your `show route`, or the user will never get to it (they will always go to the `show` route instead). Can you explain why this might be?
 
-  ##### CREATE and req.body
+  #### CREATE and req.body
 
 - Make a `create` route.
-  - URI convention for create: POST `/pirates`  
-  ...
+  - URI convention for create: POST `/`  
+
 - This will add the data from `new` into the Pirates array, and `redirect` to the `index`. The data will come from the request object-- inside an object called `req.body`. Does `req.body` exist without `body-parser`? Well no. `body-parser` adds in an empty body object to the request object that can later be populated with data. You can test the existence of req.body by console.logging req with and without `body-parser`.  
 	- You will need to set up `body-parser` in your `server.js`.
 
@@ -91,13 +127,38 @@ The app will also be able to store new pirate entries. Clicking on "New Pirate" 
 
 	Note that you can find this code in the body-parser docs on the `npmjs` site.
 
+<details><summary>.. Stuck?</summary>
+- Because we are using Express routers, check your syntax for routers (ex: `router.get()` versus `app.get()`):
+
+```
+//what would normally be:
+app.get("/", function(req, res){
+    data: exampleData
+});
+
+//should actually be:
+router.get("/", function(req, res){
+    data: exampleData
+});
+```
+
+- Understand in this homework, `router.get("/")` is the route for when the user hits `localhost:3000/pirates/`. We don't need to write `router.get("/pirates")` because that route would actually be accessible on `localhost:3000/pirates/pirates` which is not what we want. On `server.js` we already established all routes for the `/pirates` resource will be passed to this controller.
+
+- Read the error message in BOTH the browser and terminal. If something cannot be found, did you provide the appropriate relative path to that file?
+
+> Example: ../pirates is different than /pirates
+
+- Work step by step. Complete 1 step, test it out, and if it works, move on. 
+
+</details>
+
 #### Testing POST requests
-1. ##### Network Tab
+##### Network Tab
 You can see the POST request go through in the Network tab in the Chrome console. Open up the console, hit the submit button for the request, and you will see the requests load. Click on the POST request, select the Headers, and scroll down to the bottom where you will see the form data.
 
 This is good way to see if the form data has even been passed through the browser.
 
-2. ##### Postman / cURL
+##### Postman / cURL
 You can use Postman or cURL to send data to a server. Send data with Postman or cURL to your POST route, and set up the route simply to console.log req.body to see if the data has reached the server.
 
 

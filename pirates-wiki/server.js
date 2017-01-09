@@ -5,6 +5,7 @@ var express = require("express");
 var app = express();
 var logger = require("morgan");
 var bodyParser = require("body-parser");
+var hbs = require('hbs');
 
 
 //===========================
@@ -18,16 +19,15 @@ app.use(bodyParser.json());
 //this is for public static files
 app.use(express.static('public'));
 
+
+app.set("view engine", "hbs");
+app.set('views', './views');
+
 //===========================
 // CONTROLLERS
 //===========================
 
-//for root directory
-app.get('/', function(req, res){
-	res.send("Hey It works!");
-});
-
-//for /pirates
+//controllers for `/pirates` resource
 var pirateController = require('./controllers/pirates.js');
 app.use("/pirates", pirateController);
 
