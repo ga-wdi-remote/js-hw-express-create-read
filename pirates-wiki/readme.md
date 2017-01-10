@@ -65,7 +65,7 @@ The app will also be able to store new pirate entries. Clicking on "New Pirate" 
   - `controllers`:  you will code your routes in `controllers/pirates.js`
 
   <details><summary>Folder Structure Breakdown of our App</summary>
-  ![image](images/pirates_folder_breakdown)
+  ![image](images/pirates_folder_breakdown.png)
   </details>
 
 ### Part 1: Set up Express server
