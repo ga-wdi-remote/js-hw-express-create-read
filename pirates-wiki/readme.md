@@ -106,9 +106,12 @@ Notice we aren't using `app.get`, `app.post`, we are going to use `router.get`, 
   - URI convention for index: GET `/`
   - URI convention for show: GET `/:id`
 
+
 - Make a `new` route. All this should do is render the `new` view, you don't need to pass it data.
   - URI convention for new: GET `/new`
   - Place your `new` route above your `show route`, or the user will never get to it (they will always go to the `show` route instead). Can you explain why this might be?
+
+  Example output: ![image](images/index_route.png)
 
   #### CREATE and req.body
 
@@ -148,7 +151,7 @@ router.get("/", function(req, res){
 
 > Example: ../pirates is different than /pirates
 
-- Work step by step. Complete 1 step, test it out, and if it works, move on. 
+- Work step by step. Complete 1 step, test it out, and if it works, move on.
 
 </details>
 
@@ -167,9 +170,16 @@ You can use Postman or cURL to send data to a server. Send data with Postman or 
 ### Views
 
 - `index.hbs` should just be an unordered list of the Pirate's names. Each name should link to the `show` page for that Pirate. There should be a link to `add a new Pirate`.
+
+  - Example output: ![image](images/index_route.png)
+
 - `show.hbs` should display the Pirate's name, location, gender, and number of victims. There should be a link to return to the Pirates index.
+
+  - Example output: ![image](images/show_route.png)
+
 - `new.hbs` should render a form where the user can enter a new Pirate's name, location, gender, and number of victims. The form will submit to the `create` route.
 
+  Example output: ![image](images/new_route.png)
 
 ### Reach Goals
 
