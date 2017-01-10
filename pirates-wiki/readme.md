@@ -113,8 +113,6 @@ Notice we aren't using `app.get`, `app.post` like we would directly on the serve
   - URI convention for new: GET `/new`
   - Place your `new` route above your `show route`, or the user will never get to it (they will always go to the `show` route instead). Can you explain why this might be?
 
-  Example output: ![image](images/index_route.png)
-
   #### CREATE and req.body
 
 - Make a `create` route.
@@ -175,12 +173,12 @@ You can use Postman or cURL to send data to a server. Send data with Postman or 
 
   <details><summary>Example output:</summary> ![image](images/index_route.png)</details>
 
-- `show.hbs` should display the Pirate's name, location, gender, and number of victims. There should be a link to return to the Pirates index.
+- `show.hbs` should display the Pirate's name, birthplace, death_year, base, and nickname. There should be a link to return to the Pirates index.
 
 <details><summary>Example output:</summary> ![image](images/show_route.png)
 </details>
 
-- `new.hbs` should render a form where the user can enter a new Pirate's name, location, gender, and number of victims. The form will submit to the `create` route.
+- `new.hbs` should render a form where the user can enter a new Pirate's name, birthplace, death_year, base, and nickname.. The form will submit to the `create` route.
 
 <details><summary>Example output:</summary> ![image](images/new_route.png)
 </details>
