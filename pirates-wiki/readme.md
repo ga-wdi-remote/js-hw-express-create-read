@@ -64,6 +64,10 @@ The app will also be able to store new pirate entries. Clicking on "New Pirate" 
   - `views`: your Handlebars views live here
   - `controllers`:  you will code your routes in `controllers/pirates.js`
 
+  <details><summary>Folder Structure Breakdown of our App</summary>
+  ![image](images/pirates_folder_breakdown)
+  </details>
+
 ### Part 1: Set up Express server
   - In the `pirates-wiki` root directory, create `server.js`. This is where you will set up your express app's server.
     - Include requirements, middlewares, and listener to port 3000
