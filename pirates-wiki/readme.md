@@ -72,7 +72,7 @@ The app will also be able to store new pirate entries. Clicking on "New Pirate" 
 ### Part 2: Set up Controllers with Express Router
 
 ###server.js
-- Before creating routes, we have to hook up our controllers to our server. Previously, we were writing our routes directly in `server.js`. Instead, we will use [express routers](https://expressjs.com/en/guide/routing.html), which creates a route handler module. In `server.js`, we can add it to the end of middleware, before the listener, add this:
+- Before creating routes, we have to hook up our controllers to our server. Previously, we were writing our routes directly in `server.js`. Instead, we will use [express routers](https://expressjs.com/en/guide/routing.html), which creates a route handler module. In `server.js`, we can add it at the end of middlewares, before the listener like this:
 
 ```
 //controllers for `/pirates` resource
