@@ -66,13 +66,13 @@ The app will also be able to store new pirate entries. Clicking on "New Pirate" 
 
 ### Part 1: Set up Express server
   - In the `pirates-wiki` root directory, create `server.js`. This is where you will set up your express app's server.
-    - Include requirements, middleware, and listener to port 3000
+    - Include requirements, middlewares, and listener to port 3000
     - Confirm your server is ready by running `node server.js` without error
 
 ### Part 2: Set up Controllers with Express Router
 
-####server.js
-    - Before creating routes, we have to hook up our controllers to our server. Previously, we were writing our routes directly in `server.js`. Instead, we will use express routers. In `server.js`, after the middleware and before the listener, add this:
+###server.js
+- Before creating routes, we have to hook up our controllers to our server. Previously, we were writing our routes directly in `server.js`. Instead, we will use [express routers](https://expressjs.com/en/guide/routing.html), which creates a route handler module. In `server.js`, we can add it to the end of middleware, before the listener, add this:
 
 ```
 //controllers for `/pirates` resource
@@ -80,26 +80,28 @@ var pirateController = require('./controllers/pirates.js');
 app.use("/pirates", pirateController);
 ```
 
-This tells our server our controller files for `/pirates` lives in the `../controllers/pirates.js` directory.
+This tells our server that our controller files for `/pirates` live in the `../controllers/pirates.js` directory.
 
-#### controllers/pirates.js
+### controllers/pirates.js
 
 In `controllers/pirates.js`, set up your requirements as follows. The basic structure of this file will be:
 
 ```
+//requirements
 var express = require("express");
 var router = express.Router();
 var pirates = require('../models/pirates.js');
 
-//all routes for /pirate below:
+//all routes for /pirate
 router.get(.......)
 router.post(......)
 ....etc
 
+//exports
 module.exports = router;
 ```
 
-Notice we aren't using `app.get`, `app.post`, we are going to use `router.get`, `router.post`. All the code in those methods will be the same as we've worked with before. Also notice `module.exports = router` is listed AFTER all the routes.
+Notice we aren't using `app.get`, `app.post` like we would directly on the server file. The only difference here, with our router, is that we are going to use `router.get`, `router.post`. All the code in those methods will be the same as we've worked with before. Also notice `module.exports = router` is listed AFTER all the routes.
 
 - *REPS*: In `controllers/pirates.js`, make your `index` and `show` routes for the pirates in the pirates model. Remember, all routes in this file correspond to the `/pirates` resource we've declared on `server.js`.
 
@@ -149,7 +151,7 @@ router.get("/", function(req, res){
 
 - Read the error message in BOTH the browser and terminal. If something cannot be found, did you provide the appropriate relative path to that file?
 
-> Example: ../pirates is different than /pirates
+> Example: `../pirates` is a  different directory than `/pirates`
 
 - Work step by step. Complete 1 step, test it out, and if it works, move on.
 
@@ -171,15 +173,17 @@ You can use Postman or cURL to send data to a server. Send data with Postman or 
 
 - `index.hbs` should just be an unordered list of the Pirate's names. Each name should link to the `show` page for that Pirate. There should be a link to `add a new Pirate`.
 
-  - Example output: ![image](images/index_route.png)
+  <details><summary>Example output:</summary> ![image](images/index_route.png)</details>
 
 - `show.hbs` should display the Pirate's name, location, gender, and number of victims. There should be a link to return to the Pirates index.
 
-  - Example output: ![image](images/show_route.png)
+<details><summary>Example output:</summary> ![image](images/show_route.png)
+</details>
 
 - `new.hbs` should render a form where the user can enter a new Pirate's name, location, gender, and number of victims. The form will submit to the `create` route.
 
-  Example output: ![image](images/new_route.png)
+<details><summary>Example output:</summary> ![image](images/new_route.png)
+</details>
 
 ### Reach Goals
 
